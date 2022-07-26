@@ -1,14 +1,13 @@
-
 #ifndef UNTITLED_XUTILITY_HPP
 #define UNTITLED_XUTILITY_HPP
 #include "pair.hpp"
 namespace ft {
     typedef long ptrdiff_t;
-    struct input_iterator_tag {}; //++ ==
+    struct input_iterator_tag {};
     struct output_iterator_tag {};
-    struct forward_iterator_tag : public input_iterator_tag {}; //2
-    struct bidirectional_iterator_tag : public forward_iterator_tag {}; //--
-    struct random_access_iterator_tag : bidirectional_iterator_tag {}; //C-style
+    struct forward_iterator_tag : public input_iterator_tag {};
+    struct bidirectional_iterator_tag : public forward_iterator_tag {};
+    struct random_access_iterator_tag : bidirectional_iterator_tag {};
     struct Int_iterator_tag {};
     template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>
     struct iterator
@@ -110,7 +109,7 @@ namespace ft {
 
     template <class InIt> inline
     typename ft::iterator_traits<InIt>::difference_type distance(InIt F, InIt L) {
-        typename ft::iterator_traits<InIt>::difference_type N = 0; //счетчик
+        typename ft::iterator_traits<InIt>::difference_type N = 0;
         Distance2(F, L, N, ft::Iter_cat(F));
         return (N);
     }
