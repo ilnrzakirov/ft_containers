@@ -4,9 +4,7 @@
 #include "pair.hpp"
 namespace ft {
 typedef long ptrdiff_t;
-/************************************************************
-                    * ITERATOR TAGS
-************************************************************/
+
 
 struct input_iterator_tag {}; //++ ==
 struct output_iterator_tag {};
@@ -15,9 +13,7 @@ struct bidirectional_iterator_tag : public forward_iterator_tag {}; //--
 struct random_access_iterator_tag : bidirectional_iterator_tag {}; //C-style
 struct Int_iterator_tag {};
 
-/************************************************************
-                шаблонный класс iterator
-************************************************************/
+
 
 template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>
     struct iterator
@@ -29,25 +25,18 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>
      	typedef Rt  reference;
      };
 
-/************************************************************
-            шаблонные классы произвдные от iterator
-************************************************************/
-    //шаблон двунаправленного итератора
+
 template  <class T, class D, class Pt, class Rt>
 struct Bidit: public iterator<bidirectional_iterator_tag, T, D, Pt, Rt> {
 };
-    //шаблон итератора произвольного доступа
+
 template  <class T, class D, class Pt, class Rt>
 struct Ranit: public iterator<random_access_iterator_tag, T, D, Pt, Rt> {
 };
-    //шаблон итератора вывода(номинальный) служит только как удобное обозначение
+
 struct Outit: public iterator<output_iterator_tag, void ,void ,void ,void>{
 };
 
-/************************************************************
-            шаблонный класс iterator_traits
-Механизм для определения свойств итератора
-************************************************************/
 
 template <class It>
     struct iterator_traits
@@ -59,7 +48,6 @@ template <class It>
         typedef typename It::reference          reference;
     };
 
-//Частичная специализация для указателей
 template<class T>
     struct iterator_traits<T *>
     {
@@ -70,7 +58,7 @@ template<class T>
         typedef T& 							reference;
     };
 
-//Частичная специализация для константных указателей
+
 template<class T>
     struct iterator_traits<const T *>
     {
@@ -81,18 +69,13 @@ template<class T>
         typedef T& 							reference;
     };
 
-/************************************************************
-            шаблонная функция Iter_cat
-Для реализаций итераторов,
-не поддерживающих частичную специиализацию
-************************************************************/
-//принимает форму аргумента итератора (что в классе C указанно такой итератор и сделает)
+
 template<class C, class T, class D, class Pt, class Rt> inline
     C Iter_cat(const ft::iterator<C, T, D, Pt, Rt>&) {
         C X;
         return (X);
     }
-//принимает указатель, а указатель не имеет ограничений даем ему самый широкий функционал
+
 template<class T> inline
     random_access_iterator_tag Iter_cat(const T*) {
         random_access_iterator_tag X;
@@ -105,10 +88,7 @@ ft::random_access_iterator_tag Iter_cat(const T) {
    return (x);
 }
 
-/************************************************************
-            перегрузки функции Iter_cat
-для идентификации "итераторного" параметра
-************************************************************/
+
 inline ft::Int_iterator_tag Iter_cat(bool)
     { Int_iterator_tag X; return (X); }
 
@@ -142,15 +122,11 @@ inline ft::Int_iterator_tag Iter_cat(long)
 inline ft::Int_iterator_tag Iter_cat(unsigned long)
     { Int_iterator_tag X; return (X); }
 
-/************************************************************
-            шаблонная функция Distance
-Определение разности между двумя итераторами в диапозоне,
-имеет несколько перегрузок в зависимости от типа итератора
-************************************************************/
+
 
     template <class InIt> inline
     typename ft::iterator_traits<InIt>::difference_type distance(InIt F, InIt L) {
-        typename ft::iterator_traits<InIt>::difference_type N = 0; //счетчик
+        typename ft::iterator_traits<InIt>::difference_type N = 0;
         Distance2(F, L, N, ft::Iter_cat(F));
         return (N);
     }
@@ -162,44 +138,31 @@ inline ft::Int_iterator_tag Iter_cat(unsigned long)
 
     template <class InIt, class D> inline
     void Distance2(InIt F, InIt L, D& N, ft::input_iterator_tag) {
-        for (; F != L; ++F) { //продвигаем first и увеличиваем счетчик
+        for (; F != L; ++F) {
             ++N;
         }
     }
 
     template <class InIt, class D> inline
     void Distance2(InIt F, InIt L, D& N, ft::forward_iterator_tag) {
-        for (; F != L; ++F) { //продвигаем first и увеличиваем счетчик
+        for (; F != L; ++F) {
             ++N;
         }
     }
 
     template <class InIt, class D> inline
     void Distance2(InIt F, InIt L, D& N, ft::bidirectional_iterator_tag) {
-        for (; F != L; ++F) { //продвигаем first и увеличиваем счетчик
+        for (; F != L; ++F) {
             ++N;
         }
     }
 
     template <class InIt, class D> inline
     void Distance2(InIt F, InIt L, D& N, ft::random_access_iterator_tag) {
-        N += L - F; //произвольным доступ можно без цикла
+        N += L - F;
     }
 
 
-
-
-
-
-
-
-
-/************************************************************
-            шаблонный класс Ptrit
-Превращает указатель объекта в класс,
-производный от iterator (с типом произвольного доступа)
-ака прототип итератора произвольного доступа
-************************************************************/
 
 template <class T, class D, class Pt, class Rt, class Pt2, class Rt2>
     class random_acsees_iterator : public iterator<random_access_iterator_tag, T, D, Pt, Rt> {
@@ -252,10 +215,6 @@ template <class T, class D, class Pt, class Rt, class Pt2, class Rt2>
    }
 
 
-/************************************************************
-            шаблонный класс reverse_iterator
-Создает реверсивный итератор из итератора произвольного доступа
-************************************************************/
 
 template<class RanIt>
     class reverse_iterator : public ft::iterator<
@@ -296,7 +255,6 @@ template<class RanIt>
     protected:
         RanIt current;
     };
-   // шаблонные операторы reverse_iterator
 template<class RanIt, class D> inline
     reverse_iterator<RanIt> operator * (D N, const reverse_iterator<RanIt>& Y) { return (Y + N); }
 template<class RanIt> inline
@@ -314,10 +272,7 @@ template<class RanIt> inline
 template<class RanIt> inline
     bool operator >= (const reverse_iterator<RanIt>& X, const reverse_iterator<RanIt>& Y) { return (!(X < Y)); }
 
-/************************************************************
-            шаблонный класс Revbidit
-Создает реверсивный итератор из двунаправленного итератора
-************************************************************/
+
 
 template<class BidIt>
 class Revbidit : public ft::iterator<
@@ -348,17 +303,7 @@ public:
 protected:
     BidIt current;
 };
-/************************************************************
-            функции из библиотеки algoritm
-************************************************************/
 
-/**********************
-MISMATCH
-Cравнивает две последовательности и находит первую позицию, где элементы различны.
-Возвращается пара итераторов, каждый из которых указывает на эту позицию в соответствующей последовательности.
-Если все элементы одинаковы, то каждый итератор в паре указывает на элемент last в своем контейнере
-Использует оператор
-**********************/
     template <class InIt1, class InIt2> inline
     pair<InIt1, InIt2> mismatch(InIt1 F, InIt1 L, InIt2 X) {
         for (; F != L && *F == *X; ++F, ++X)
@@ -366,13 +311,7 @@ Cравнивает две последовательности и находи�
         return (pair<InIt1, InIt2>(F, X));
     }
 
-/**********************
-MISMATCH PRED
-Cравнивает две последовательности и находит первую позицию, где элементы различны.
-Возвращается пара итераторов, каждый из которых указывает на эту позицию в соответствующей последовательности.
-Если все элементы одинаковы, то каждый итератор в паре указывает на элемент last в своем контейнере
-Использует предикат
-**********************/
+
     template <class InIt1, class InIt2, class Pr> inline
     pair<InIt1, InIt2> mismatch(InIt1 F, InIt1 L, InIt2 X, Pr P) {
         for (; F != L && P(*F, *X); ++F, ++X)
@@ -380,10 +319,6 @@ Cравнивает две последовательности и находи�
         return (pair<InIt1, InIt2>(F, X));
     }
 
-/**********************
-        COPY
- вычисляет *(X + N) = *(first + N), возвращая X + N
-**********************/
     template <class InIt, class OutIt> inline
     OutIt copy(InIt F, InIt L, OutIt X) {
         for (; F != L; ++X, ++F) {
@@ -391,10 +326,7 @@ Cравнивает две последовательности и находи�
         }
         return (X);
     }
-/**********************
-    COPY_BACKWARD
- вычисляет *(X - N - 1) = *(last - N - D),  возвращая X - (last - first)
-**********************/
+
     template <class BidIt1, class BidIt2> inline
     BidIt2 copy_backward(BidIt1 F, BidIt1 L, BidIt2 X) {
         while (F != L) {
@@ -402,120 +334,75 @@ Cравнивает две последовательности и находи�
         }
         return (X);
     }
-/**********************
-EQUAL
-С помощью mismatch (Возвращает первую несовпадающую пару элементов из двух диапазонов)
-Елементы сравниваются с помощью ==
-**********************/
+
 
 template <class InIt1, class InIt2> inline
     bool equal (InIt1 F, InIt1 L, InIt2 X) {
         return (ft::mismatch(F, L, X).first == L);
     }
-/**********************
-EQUAL PRED
-С помощью mismatch (Возвращает первую несовпадающую пару элементов из двух диапазонов)
- Елементы сравниваются с использованием заданного предиката
-**********************/
+
 template <class InIt1, class InIt2, class Pr> inline
     bool equal (InIt1 F, InIt1 L, InIt2 X, Pr P) {
         return (ft::mismatch(F, L, X, P).first == L);
     }
 
-/**********************
-FILL
-выполняет присваивание *(first + N) = x для каждого N
-в диапазоне (0, last - first)
-**********************/
+
 template <class FwdIt, class T> inline
     void fill(FwdIt F, 	FwdIt L,  const T& X) {
         for (; F != L ; ++F)
             *F = X;
     }
-/**********************
-FILL_N
-выполняет присваивание *(first + N) = x для каждого N
-в диапазоне (0, N)
-**********************/
+
 template <class OutIt, class Sz, class T> inline
     void fill_n(OutIt F, Sz N,  const T& X) {
         for (; 0 < N ; --N, ++F)
             *F = X;
     }
-/**********************
-LEXICOGRAPHICAL_COMPARE
-Cравнивает соответственные пары элементов из двух последовательностей,
-ограниченных диапазонами [first1,last1) и [first2,last2)
-стр 211
-**********************/
+
 
 template<class InIt1, class InIt2> inline
     bool lexicographical_compare(InIt1 F1, InIt1 L1, InIt2 F2, InIt2 L2) {
         for (; F1 != L1 && F2 != L2; ++F1, ++F2)
-            if (*F1 < *F2) //если последовательность 1 лексикографически меньше чем 2 последовательность
+            if (*F1 < *F2)
                 return (true);
-            else if (*F2 < *F1) //иначе
+            else if (*F2 < *F1)
                 return (false);
         return (F1 == L1 && F2 != L2);
     }
-/**********************
-LEXICOGRAPHICAL_COMPARE PRED
-Cравнивает соответственные пары элементов из двух последовательностей,
-ограниченных диапазонами [first1,last1) и [first2,last2)
-Аналогияная работа но сравнивнение идет с помощью предиката
-**********************/
+
     template<class InIt1, class InIt2, class Pr> inline
     bool lexicographical_compare(InIt1 F1, InIt1 L1, InIt2 F2, InIt2 L2, Pr P) {
         for (; F1 != L1 && F2 != L2; ++F1, ++F2)
-            if (P(*F1, *F2)) //отличие
+            if (P(*F1, *F2))
                 return (true);
-            else if (P(*F2,*F1)) //отличие
+            else if (P(*F2,*F1))
                 return (false);
         return (F1 == L1 && F2 != L2);
     }
-/**********************
-MAX
-Возвращяет максимальный элемент
-сравнение с помощью оператора
-**********************/
+
 template<class T> inline
     const T& max(const T& X, const T& Y) {
         return (X < Y ? Y : X);
     }
 
-/**********************
-MAX PRED
-Возвращяет максимальный элемент
-сравнение с помощью предиката
-**********************/
+
 template<class T, class Pr> inline
     const T& max(const T& X, const T& Y, Pr P) {
         return (P(X, Y) ? Y : X);
     }
-/**********************
-MIN
-Возвращяет минимальный элемент
-сравнение с помощью оператора
-**********************/
+
 template<class T> inline
 const T& min(const T& X, const T& Y) {
         return (Y < X ? Y : X);
     }
 
-/**********************
-MIN PRED
-Возвращяет минимальный элемент
-сравнение с помощью предиката
-**********************/
+
 template<class T, class Pr> inline
     const T& min(const T& X, const T& Y, Pr P) {
         return (P(Y,X) ? Y : X);
     }
 
 
-/**********************
-SWAP
-**********************/
 template <class T> inline
     void swap(T& X, T& Y) {
         T Tmp = X;
@@ -525,11 +412,4 @@ template <class T> inline
 };
 
 
-
-
-
-
-
-
-
-#endif //UNTITLED_XUTILITY_HPP
+#endif
