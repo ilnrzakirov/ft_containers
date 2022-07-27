@@ -2,13 +2,6 @@
 #define UNTITLED_SET_HPP
 #include "../xtree/Tset_traits.hpp"
 
-/******************************
-SET - описывает обьект, который управляет последовательностью переменной длины из элементов типа Key(K)
-Pr - функциональный объект упорядочивания
-A - распределитель (распределяет и освобождает память для контейнера
-
-
-******************************/
 namespace ft {
     template<class K, class Pr = ft::less<K>, class A = std::allocator<K> >
     class set : public Tree<Tset_traits<K, Pr, A, false> > {
@@ -30,25 +23,25 @@ namespace ft {
         typedef typename Mybase::reverse_iterator reverse_iterator;
         typedef typename Mybase::const_reverse_iterator const_reverse_iterator;
         typedef typename Mybase::value_type value_type;
-        set() : Mybase(key_compare(), allocator_type()) {} //пустой набор
-        explicit set(const key_compare &Pred) : Mybase(Pred, allocator_type()) {} //+ упорядочен с помощью Pred
-        set(const key_compare &Pred, const allocator_type &Al) : Mybase(Pred, Al) {} // + обьект распределитель
+        set() : Mybase(key_compare(), allocator_type()) {}
+        explicit set(const key_compare &Pred) : Mybase(Pred, allocator_type()) {}
+        set(const key_compare &Pred, const allocator_type &Al) : Mybase(Pred, Al) {}
         template<class It>
         set(It F, It L) : Mybase(key_compare(), allocator_type()) { //копируем
             for (; F != L; ++F)
                 this->insert(*F);
         }
         template<class It>
-        set(It F, It L, const key_compare &Pred) : Mybase(Pred, allocator_type()) { //+ упорядочен с помощью Pred
+        set(It F, It L, const key_compare &Pred) : Mybase(Pred, allocator_type()) {
             for (; F != L; ++F)
                 this->insert(*F);
         }
         template<class It>
-        set(It F, It L, const key_compare &Pred, const allocator_type &Al) : Mybase(Pred, Al) { //+ обьект распределитель
+        set(It F, It L, const key_compare &Pred, const allocator_type &Al) : Mybase(Pred, Al) {
             for (; F != L; ++F)
                 this->insert(*F);
         }
     };
 }
 
-#endif //UNTITLED_SET_HPP
+#endif
