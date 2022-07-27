@@ -45,13 +45,10 @@ template <class RanIt, class D> inline
     I += N;
     }
 
-/************************************************************
-            шаблонная функция Dist_type
-************************************************************/
 template<class It> inline
     typename iterator_traits<It>::difference_type *Dist_type(It) {
     return (0);
     }
 }
 
-#endif //UNTITLED_ITERATOR_HPP
+#endif

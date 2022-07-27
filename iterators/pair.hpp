@@ -1,14 +1,8 @@
-//
-// Created by Nadia Callie on 5/4/22.
-//
-
 #ifndef UNTITLED_PAIR_HPP
 #define UNTITLED_PAIR_HPP
 namespace ft
 {
-/************************************************************
-                    ШАБЛОННАЯ СТРУКТУРА pair
-************************************************************/
+
     template <class T1, class T2> struct pair {
         typedef T1 first_type;
         typedef T2 second_type;
@@ -21,9 +15,6 @@ namespace ft
         T1 first;
         T2 second;
     };
-/************************************************************
-                    ШАБЛОННЫЕ ОПЕРАТОРЫ pair
-************************************************************/
 
 template <class T1, class T2>
     inline bool  operator == (const pair<T1, T2>& X, const pair<T1, T2>& Y) {
@@ -59,10 +50,7 @@ template <class T1, class T2>
         return pair<T1, T2>(X, Y);
     }
 
-/************************************************************
-                   доп ШАБЛОННЫЕ ОПЕРАТОРЫ
-                    возможно нужно будет убрать, стр 63
-************************************************************/
+
 template<class T> inline
     bool operator != (const T& X, const T& Y) {
         return !(Y ==X);
@@ -81,4 +69,4 @@ template<class T> inline
     }
 
 };
-#endif //UNTITLED_PAIR_HPP
+#endif
