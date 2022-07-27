@@ -1,6 +1,3 @@
-//
-// Created by Nadia Callie on 5/5/22.
-//
 #include <iostream>
 #include <iomanip>
 #include <numeric>
