@@ -5,7 +5,6 @@
 #include <memory>
 #include "../iterators/iterator.hpp"
 #include <stdexcept>
-//#include "utils/Vector_val.hpp"
 
 namespace ft {
 
@@ -51,31 +50,25 @@ class Vector_val {
             if (Buy(N))
                 Last = Ufill(First, N, V);
         }
-
         vector (size_type N, const T& V, const A& Al) : MyBase(Al) {
             if (Buy(N))
                 Last = Ufill(First, N, V);
         }
-
         vector(const Myt& X) : MyBase(X.Alval) {
             if (Buy(X.size()))
                 Last = Ucopy(X.begin(), X.end(), First);
         }
-
         template<class It>
         vector(It F, It L) : MyBase() {
             Construct(F, L, Iter_cat(F));
         }
-
         template<class It>
         vector(It F, It L, const A& Al) : MyBase(Al) {
             Construct(F, L, Iter_cat(F));
         }
-
         ~vector() {
             Clear();
         }
-
         Myt& operator = (const Myt& X) {
             if (this == &X)
                 ;

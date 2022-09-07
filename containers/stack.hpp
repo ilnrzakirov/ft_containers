@@ -2,7 +2,6 @@
 #define STACK_
 #include <deque>
 
-
 namespace ft {
 
 template<class T, class C = std::deque<T> >
