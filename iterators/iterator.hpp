@@ -1,6 +1,3 @@
-//
-// Created by Nadia Callie on 5/4/22.
-//
 #ifndef UNTITLED_ITERATOR_HPP
 #define UNTITLED_ITERATOR_HPP
 #include "xutility.hpp"

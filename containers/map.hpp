@@ -1,6 +1,5 @@
 #ifndef UNTITLED_MAP_HPP
 #define UNTITLED_MAP_HPP
-
 #include "../xtree/Tmap_traits.hpp"
 
 namespace ft {
@@ -45,12 +44,10 @@ template<class K, class T, class Pr = less<K>, class A = std::allocator<pair<con
             for (; F != L; ++F)
                 this->insert(*F);
         }
-
         mapped_type &operator[](const key_type &Kv) {
             iterator P = this->insert(value_type(Kv, mapped_type())).first;
             return ((*P).second);
         }
-
         mapped_type &at(const key_type &Kv) {
             iterator P = this->find(Kv);
             if (P == this->end())
@@ -64,5 +61,4 @@ template<class K, class T, class Pr = less<K>, class A = std::allocator<pair<con
 };
 
 }
-
 #endif
