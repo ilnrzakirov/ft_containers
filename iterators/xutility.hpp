@@ -1,4 +1,3 @@
-
 #ifndef UNTITLED_XUTILITY_HPP
 #define UNTITLED_XUTILITY_HPP
 #include "pair.hpp"
@@ -21,7 +20,6 @@ template <class C, class T, class D = ptrdiff_t, class Pt = T*, class Rt = T&>
      	typedef Rt  reference;
      };
 
-
 template  <class T, class D, class Pt, class Rt>
 struct Bidit: public iterator<bidirectional_iterator_tag, T, D, Pt, Rt> {
 };
@@ -32,7 +30,6 @@ struct Ranit: public iterator<random_access_iterator_tag, T, D, Pt, Rt> {
 
 struct Outit: public iterator<output_iterator_tag, void ,void ,void ,void>{
 };
-
 
 template <class It>
     struct iterator_traits
@@ -54,7 +51,6 @@ template<class T>
         typedef T& 							reference;
     };
 
-
 template<class T>
     struct iterator_traits<const T *>
     {
@@ -64,7 +60,6 @@ template<class T>
         typedef T 							*pointer;
         typedef T& 							reference;
     };
-
 
 template<class C, class T, class D, class Pt, class Rt> inline
     C Iter_cat(const ft::iterator<C, T, D, Pt, Rt>&) {
@@ -83,7 +78,6 @@ ft::random_access_iterator_tag Iter_cat(const T) {
    ft::random_access_iterator_tag x;
    return (x);
 }
-
 
 inline ft::Int_iterator_tag Iter_cat(bool)
     { Int_iterator_tag X; return (X); }
@@ -117,8 +111,6 @@ inline ft::Int_iterator_tag Iter_cat(long)
 
 inline ft::Int_iterator_tag Iter_cat(unsigned long)
     { Int_iterator_tag X; return (X); }
-
-
 
     template <class InIt> inline
     typename ft::iterator_traits<InIt>::difference_type distance(InIt F, InIt L) {
@@ -157,7 +149,6 @@ inline ft::Int_iterator_tag Iter_cat(unsigned long)
     void Distance2(InIt F, InIt L, D& N, ft::random_access_iterator_tag) {
         N += L - F;
     }
-
 
 
 template <class T, class D, class Pt, class Rt, class Pt2, class Rt2>
@@ -209,7 +200,6 @@ template <class T, class D, class Pt, class Rt, class Pt2, class Rt2>
    random_acsees_iterator <T, D, Pt, Rt, Pt2, Rt2> operator + (D0 N, const random_acsees_iterator<T, D, Pt, Rt, Pt2, Rt2>& Y) {
        return (Y + static_cast<D>(N));
    }
-
 
 
 template<class RanIt>
@@ -406,6 +396,5 @@ template <class T> inline
         Y = Tmp;
     }
 };
-
 
 #endif

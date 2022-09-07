@@ -29,7 +29,6 @@ template<> struct is_integral<long long>: public true_type {};
 template<> struct is_integral<unsigned long long>: public true_type {};
 template<> struct is_integral<__int128_t>: public true_type {};
 template<> struct is_integral<__uint128_t>: public true_type {};
-
 }
 
 #endif
